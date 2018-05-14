@@ -22,6 +22,9 @@
         for(var i = 0 ; i < users.length ; i++){
             var user = users[i];
             var clone  = tr_template.clone();
+            clone.attr('id', user.id);
+            clone.find('.wbdv-remove').click(deleteUser);
+            clone.find('.wbdv-edit').click(editUser);
             clone.find('.wbdv-username').html(user.username);
             clone.find('.wbdv-first-name').html(user.firstName);
             clone.find('.wbdv-last-name').html(user.lastName);
@@ -64,9 +67,17 @@
         // })
     }
 
-    // function deleteUser(event){
-    //
-    // }
+    function deleteUser(event){
+        var $deleteBtn = $(event.currentTarget);
+        var userId = $deleteBtn.parent().parent().parent().attr('id');
+
+        // cal service to delete
+    }
+
+    function editUser(event){
+        console.log("edit");
+        console.log(event);
+    }
 
 
 
