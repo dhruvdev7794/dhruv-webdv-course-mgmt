@@ -19,7 +19,7 @@ public class User {
 	private String email;
 	private String phone;
 	private String role;
-	private Date dateOfBirth;
+//	private DateTime dateOfBirth;
 	
 	// setter and getter for id
 	public int getId() {
@@ -77,12 +77,12 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	// Setter and getter for DOB
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+//	// Setter and getter for DOB
+//	public Date getDateOfBirth() {
+//		return dateOfBirth;
+//	}
+//	public void setDateOfBirth(Date dateOfBirth) {
+//		this.dateOfBirth = dateOfBirth;
+//	}
 
 }

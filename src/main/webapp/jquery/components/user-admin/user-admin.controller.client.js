@@ -13,18 +13,27 @@
         tr_template = $('.wbdv-template');
         tbody = $('tbody');
         $('#wbdv-add').click(createUser);
-        userService.findAllUsers().then(renderUsers);
+        findAllUsers();
+    }
+
+    function findAllUsers(){
+        userService.findAllUsers()
+            .then(renderUsers);
     }
 
 
     function renderUsers(users){
         // render all the users using the template
+        tbody.empty();
         for(var i = 0 ; i < users.length ; i++){
             var user = users[i];
             var clone  = tr_template.clone();
+            // id
             clone.attr('id', user.id);
+            // get delete and edit buttons
             clone.find('.wbdv-remove').click(deleteUser);
             clone.find('.wbdv-edit').click(editUser);
+            // find the contents
             clone.find('.wbdv-username').html(user.username);
             clone.find('.wbdv-first-name').html(user.firstName);
             clone.find('.wbdv-last-name').html(user.lastName);
@@ -58,13 +67,6 @@
         console.log(user);
         userService.createUser(user)
             .then(findAllUsers);
-        // fetch('http://localhost:8080/api/user', {
-			// method: 'post',
-			// body: JSON.stringify(user),
-			// headers: {
-			// 	'content-type' : 'application/json'
-			// }
-        // })
     }
 
     function deleteUser(event){
@@ -72,6 +74,8 @@
         var userId = $deleteBtn.parent().parent().parent().attr('id');
 
         // cal service to delete
+        userService.deleteUser(userId)
+            .then(findAllUsers);
     }
 
     function editUser(event){
