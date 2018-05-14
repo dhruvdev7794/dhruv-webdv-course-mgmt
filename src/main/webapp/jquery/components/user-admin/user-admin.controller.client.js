@@ -12,13 +12,8 @@
 
         tr_template = $('.wbdv-template');
         tbody = $('tbody');
-        findAllUsers();
-    }
-
-    function findAllUsers() {
-        userService.findAllUsers().then(function (response) {
-            return response.json();
-        }).then(renderUsers);
+        $('#wbdv-add').click(createUser);
+        userService.findAllUsers().then(renderUsers);
     }
 
 
@@ -38,7 +33,36 @@
     }
 
 
+    function createUser(){
+        var username = $('#usernameFld').val();
+        var password = $('#passwordFld').val();
+        var firstName = $('#firstNameFld').val();
+        var lastName = $('#lastNameFld').val();
+        var email = $('#emailFld').val();
+        var phone = $('#phoneFld').val();
+        var role = $('#roleFld').val();
 
+
+        var user = {
+            email: email,
+            username: username,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+            role: role
+        };
+        console.log(user);
+        userService.createUser(user)
+            .then(findAllUsers);
+        // fetch('http://localhost:8080/api/user', {
+			// method: 'post',
+			// body: JSON.stringify(user),
+			// headers: {
+			// 	'content-type' : 'application/json'
+			// }
+        // })
+    }
 
     // function deleteUser(event){
     //
