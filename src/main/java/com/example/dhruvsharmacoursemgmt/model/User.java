@@ -1,5 +1,7 @@
 package com.example.dhruvsharmacoursemgmt.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +16,10 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
-	
-	// role remaining
+	private String email;
+	private String phone;
+	private String role;
+	private Date dateOfBirth;
 	
 	// setter and getter for id
 	public int getId() {
@@ -51,6 +55,34 @@ public class User {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	// Setter and getter for email
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	// Setter and getter for phone
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	// Setter and getter for role
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	// Setter and getter for DOB
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 }
