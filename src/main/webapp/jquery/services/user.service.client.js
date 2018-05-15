@@ -4,7 +4,9 @@ function UserServiceClient() {
 	this.findUserById = findUserById;
 	this.deleteUser = deleteUser;
 	this.updateUser = updateUser;
+	this.register = register;
 	this.url = 'http://localhost:8080/api/user';
+    this.registerUrl = 'http://localhost:8080/api/register';
 	var self = this;
 
     //////////// Assignment: User admin functions ////////////
@@ -54,6 +56,23 @@ function UserServiceClient() {
 	}
 	////////////////////////////////////////////////////////////
 
+
+	function register(user){
+    	return fetch(self.registerUrl, {
+    		method: 'post',
+			body: JSON.stringify(user),
+			headers:{
+                'content-type' : 'application/json'
+			}
+		}).then(function (response) {
+			// console.log(response);
+			if(response.status > 400){
+				return null;
+			}
+			return response.json();
+        })
+
+	}
 
 
 }
