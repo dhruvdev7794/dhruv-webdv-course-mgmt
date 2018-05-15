@@ -68,6 +68,14 @@ public class UserService {
 
 	}
 
+	@PostMapping("/api/login")
+	public Optional<User> login(@RequestBody User user) {
+		Optional<User> data = userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+		if(data.isPresent()) {
+			return data;
+		}
+		return null;
+	}
 	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpServletResponse response){
