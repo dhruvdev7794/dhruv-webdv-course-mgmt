@@ -8,11 +8,12 @@
     function main(){
         // hide the template
         // var hidden = $('.wbdv-hidden');
-        // hidden.css('display', 'none')
+        // hidden.css('display', 'none');
 
         tr_template = $('.wbdv-template');
         tbody = $('tbody');
         $('#wbdv-add').click(createUser);
+        $('#wbdv-done').click(updateUser)
         findAllUsers();
     }
 
@@ -26,22 +27,40 @@
         // render all the users using the template
         tbody.empty();
         for(var i = 0 ; i < users.length ; i++){
-            var user = users[i];
-            var clone  = tr_template.clone();
-            // id
-            clone.attr('id', user.id);
-            // get delete and edit buttons
-            clone.find('.wbdv-remove').click(deleteUser);
-            clone.find('.wbdv-edit').click(editUser);
-            // find the contents
-            clone.find('.wbdv-username').html(user.username);
-            clone.find('.wbdv-first-name').html(user.firstName);
-            clone.find('.wbdv-last-name').html(user.lastName);
-            clone.find('.wbdv-phone').html(user.phone);
-            clone.find('.wbdv-email-id').html(user.email);
-            clone.find('.wbdv-role').html(user.role);
-            tbody.append(clone);
+            // var user = users[i];
+            // var clone  = tr_template.clone();
+            // // id
+            // clone.attr('id', user.id);
+            // // get delete and edit buttons
+            // clone.find('.wbdv-remove').click(deleteUser);
+            // clone.find('.wbdv-edit').click(editUser);
+            // // find the contents
+            // clone.find('.wbdv-username').html(user.username);
+            // clone.find('.wbdv-first-name').html(user.firstName);
+            // clone.find('.wbdv-last-name').html(user.lastName);
+            // clone.find('.wbdv-phone').html(user.phone);
+            // clone.find('.wbdv-email-id').html(user.email);
+            // clone.find('.wbdv-role').html(user.role);
+            // tbody.append(clone);
+            renderUser(users[i]);
         }
+    }
+    function renderUser(user){
+        var clone  = tr_template.clone();
+        // id
+        clone.attr('id', user.id);
+        // get delete and edit buttons
+        clone.find('.wbdv-remove').click(deleteUser);
+        clone.find('.wbdv-edit').click(editUser);
+        // find the contents
+        clone.find('.wbdv-username').html(user.username);
+        clone.find('.wbdv-first-name').html(user.firstName);
+        clone.find('.wbdv-last-name').html(user.lastName);
+        clone.find('.wbdv-phone').html(user.phone);
+        clone.find('.wbdv-email-id').html(user.email);
+        clone.find('.wbdv-role').html(user.role);
+        // $(clone).removeClass('.wbdv-hidden');
+        tbody.append(clone);
     }
 
 
@@ -78,32 +97,5 @@
             .then(findAllUsers);
     }
 
-    function editUser(event){
-        console.log("edit");
-        console.log(event);
-    }
 
-
-
-
-
-
-
-
-//    var $usernameFld, $passwordFld;
-//    var $removeBtn, $editBtn, $createBtn;
-//    var $firstNameFld, $lastNameFld;
-//    var $userRowTemplate, $tbody;
-//    var userService = new AdminUserServiceClient();
-//    $(main);
-//
-//    function main(){}
-//    function createUser(){}
-//    function findAllUsers(){}
-//    function findUserById(){}
-
-//    function selectUser(){}
-//    function updateUser(){}
-//    function renderUser(user){}
-//    function renderUsers(users){}
 })();
