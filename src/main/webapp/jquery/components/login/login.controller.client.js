@@ -2,6 +2,7 @@
     var $usernameFld, $passwordFld;
     var $loginBtn;
     var userService = new UserServiceClient();
+    var profileRedirect = '../profile/profile.template.client.html';
     $(main);
 
     function main() {
@@ -16,10 +17,11 @@
 
     function setSession(response){
         console.log(response);
-        if(response.length>0){
-            var user = response[0];
-            sessionStorage.username = user.username;
-            sessionStorage.password = user.password;
+        if(response.username !=null && response.password!=null){
+            userService.setSessionAttribute(response.username, response.password).then(function () {
+                window.location.href=profileRedirect;
+            });
+
         }
         else{
             alert('incorrect details')

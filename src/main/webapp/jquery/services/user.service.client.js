@@ -6,9 +6,11 @@ function UserServiceClient() {
 	this.updateUser = updateUser;
 	this.register = register;
 	this.login = login;
+	this.setSessionAttribute = setSessionAttribute;
 	this.url = 'http://localhost:8080/api/user';
 	this.loginUrl = 'http://localhost:8080/api/login';
     this.registerUrl = 'http://localhost:8080/api/register';
+    this.setSessionUrl = 'http://localhost:8080/api/session/set';
 	var self = this;
 
     //////////// Assignment: User admin functions ////////////
@@ -84,6 +86,18 @@ function UserServiceClient() {
 			}
 			return response.json();
         })
+
+	}
+
+	function setSessionAttribute(username, password){
+    	return fetch(self.setSessionUrl+"/username/"+username)
+			.then(function (usernameResponse) {
+				return fetch(self.setSessionUrl+"/password/"+password)
+					.then(function (passwordResponse) {
+						console.log(usernameResponse+ passwordResponse);
+						return usernameResponse+ passwordResponse;
+            		});
+        	});
 
 	}
 
