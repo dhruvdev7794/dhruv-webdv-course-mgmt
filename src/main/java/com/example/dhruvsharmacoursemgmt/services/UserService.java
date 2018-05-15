@@ -38,6 +38,22 @@ public class UserService {
 		}
 		return null;
 	}
+	@PutMapping("/api/user/{userId}")
+	public User updateUser(@PathVariable("userId") int userId, @RequestBody User newUser) {
+		Optional<User> data = userRepository.findById(userId);
+		if(data.isPresent()) {
+			User user = data.get();
+			user.setFirstName(newUser.getFirstName());
+			user.setLastName(newUser.getLastName());
+			user.setEmail(newUser.getEmail());
+			user.setPhone(newUser.getPhone());
+			user.setRole(newUser.getRole());
+			// do it for the rest of the fields
+			userRepository.save(user);
+			return user;
+		}
+		return null;
+	}
 	
 	
 }
