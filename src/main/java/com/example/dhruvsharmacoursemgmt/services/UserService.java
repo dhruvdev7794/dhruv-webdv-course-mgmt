@@ -3,6 +3,8 @@ package com.example.dhruvsharmacoursemgmt.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,6 +68,21 @@ public class UserService {
 
 	}
 
+	
+	@PostMapping("/api/register")
+	public User register(@RequestBody User user, HttpServletResponse response){
+		Iterable<User> data = userRepository.findUserByUsername(user.getUsername());
+		for(User newUser : data) {
+			if(newUser!=null) {
+				response.setStatus(HttpServletResponse.SC_CONFLICT);
+				return null;
+			}
+			else {
+				return createUser(user);
+			}
+		}
+		return createUser(user);
+	}
 	
 	
 }
