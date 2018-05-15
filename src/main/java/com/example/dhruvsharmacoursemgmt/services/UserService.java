@@ -54,6 +54,18 @@ public class UserService {
 		}
 		return null;
 	}
+	@DeleteMapping("/api/user/{userId}")
+	public ResponseEntity<Void> deleteUser(@PathVariable("userId") int id) {
+		try{
+			userRepository.deleteById(id);
+			return ResponseEntity.noContent().build();
+		}
+		catch(Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
 	
 	
 }
