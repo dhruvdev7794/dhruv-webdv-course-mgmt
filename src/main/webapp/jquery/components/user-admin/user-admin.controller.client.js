@@ -13,7 +13,7 @@
         tr_template = $('.wbdv-template');
         tbody = $('tbody');
         $('#wbdv-add').click(createUser);
-        // $('#wbdv-done').click(updateUser)
+        $('#wbdv-done').click(updateUser)
         findAllUsers();
     }
 
@@ -94,7 +94,14 @@
 
         // cal service to delete
         userService.deleteUser(userId)
-            .then(findAllUsers);
+            .then(function (response) {
+                if(response.status>300){
+                    alert("Incorrect id");
+                }
+                else{
+                    findAllUsers();
+                }
+            });
     }
 
     function editUser(event){
@@ -120,7 +127,24 @@
         $('#roleFld').val(user.role);
     }
 
+    function updateUser(){
+        var userId = $editBtn.parent().parent().parent().attr('id');
+        findUserById(userId)
+            .then(function (response) {
+                console.log(response)
+            })
 
+        // var userVar ={
+        //     username : user.username,
+        //     password: user.password,
+        //     firstName: user.firstName,
+        //     lastName: user.lastName,
+        //     email: user.email,
+        //     phone: user.phone,
+        //     role: user.role
+        // };
+        // userService.updateUser(user.userId, userVar);
+    }
 
 
 })();
