@@ -70,11 +70,12 @@ public class UserService {
 	}
 
 	@PostMapping("/api/login")
-	public Optional<User> login(@RequestBody User user) {
+	public Optional<User> login(@RequestBody User user, HttpServletResponse response) {
 		Optional<User> data = userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
 		if(data.isPresent()) {
 			return data;
 		}
+		response.setStatus(HttpServletResponse.SC_CONFLICT);
 		return null;
 	}
 	

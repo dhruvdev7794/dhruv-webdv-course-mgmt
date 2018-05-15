@@ -68,6 +68,9 @@ function UserServiceClient() {
                 'content-type' : 'application/json'
 			}
 		}).then(function (response){
+			if(response.status > 400){
+				return null;
+			}
 			return response.json();
 		});
 	}

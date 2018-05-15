@@ -16,8 +16,7 @@
     }
 
     function setSession(response){
-        console.log(response);
-        if(response.username !=null && response.password!=null){
+        if(response!= null && response.username !=null && response.password!=null){
             userService.setSessionAttribute(response.username, response.password).then(function () {
                 window.location.href=profileRedirect;
             });
