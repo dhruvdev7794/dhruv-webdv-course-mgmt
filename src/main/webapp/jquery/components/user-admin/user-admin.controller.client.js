@@ -7,9 +7,9 @@
     var userService = new UserServiceClient();
     function main(){
         // hide the template
-        // var hidden = $('.wbdv-hidden');
-        // hidden.css('display', 'none');
-
+        var hidden = $('.wbdv-hidden');
+        hidden.css('display', 'none');
+        hidden.css("display", '');
         tr_template = $('.wbdv-template');
         tbody = $('tbody');
         $('#wbdv-add').click(createUser);
@@ -27,21 +27,6 @@
         // render all the users using the template
         tbody.empty();
         for(var i = 0 ; i < users.length ; i++){
-            // var user = users[i];
-            // var clone  = tr_template.clone();
-            // // id
-            // clone.attr('id', user.id);
-            // // get delete and edit buttons
-            // clone.find('.wbdv-remove').click(deleteUser);
-            // clone.find('.wbdv-edit').click(editUser);
-            // // find the contents
-            // clone.find('.wbdv-username').html(user.username);
-            // clone.find('.wbdv-first-name').html(user.firstName);
-            // clone.find('.wbdv-last-name').html(user.lastName);
-            // clone.find('.wbdv-phone').html(user.phone);
-            // clone.find('.wbdv-email-id').html(user.email);
-            // clone.find('.wbdv-role').html(user.role);
-            // tbody.append(clone);
             renderUser(users[i]);
         }
     }
@@ -59,7 +44,6 @@
         clone.find('.wbdv-phone').html(user.phone);
         clone.find('.wbdv-email-id').html(user.email);
         clone.find('.wbdv-role').html(user.role);
-        // $(clone).removeClass('.wbdv-hidden');
         tbody.append(clone);
     }
 
@@ -132,18 +116,7 @@
         findUserById(userId)
             .then(function (response) {
                 console.log(response)
-            })
-
-        // var userVar ={
-        //     username : user.username,
-        //     password: user.password,
-        //     firstName: user.firstName,
-        //     lastName: user.lastName,
-        //     email: user.email,
-        //     phone: user.phone,
-        //     role: user.role
-        // };
-        // userService.updateUser(user.userId, userVar);
+            });
     }
 
 
