@@ -13,7 +13,7 @@
         tr_template = $('.wbdv-template');
         tbody = $('tbody');
         $('#wbdv-add').click(createUser);
-        $('#wbdv-done').click(updateUser)
+        // $('#wbdv-done').click(updateUser)
         findAllUsers();
     }
 
@@ -96,6 +96,31 @@
         userService.deleteUser(userId)
             .then(findAllUsers);
     }
+
+    function editUser(event){
+        var $editBtn = $(event.currentTarget);
+        var userId = $editBtn.parent().parent().parent().attr('id');
+        findUserById(userId)
+            .then(selectUser);
+    }
+
+
+    function findUserById(userId){
+        return userService.findUserById(userId);
+    }
+
+    function selectUser(user){
+        // console.log(user);
+        $('#usernameFld').val(user.username);
+        $('#passwordFld').val(user.password);
+        $('#firstNameFld').val(user.firstName);
+        $('#lastNameFld').val(user.lastName);
+        $('#emailFld').val(user.email);
+        $('#phoneFld').val(user.phone);
+        $('#roleFld').val(user.role);
+    }
+
+
 
 
 })();
