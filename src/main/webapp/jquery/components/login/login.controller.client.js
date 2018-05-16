@@ -18,7 +18,7 @@
     function setSession(response){
         if(response!= null && response.username !=null && response.password!=null){
             userService.setSessionAttribute(response.username, response.password).then(function () {
-                window.location.href=profileRedirect;
+                window.location.href=profileRedirect+"?user="+response.id;
             });
 
         }
@@ -26,6 +26,5 @@
             alert('incorrect details')
         }
     }
-
 
 })();
