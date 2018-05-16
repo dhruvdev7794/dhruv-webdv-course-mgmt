@@ -3,6 +3,7 @@ package com.example.dhruvsharmacoursemgmt.services;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -125,4 +126,10 @@ public class UserService {
 	public Iterable<User> findUserByUsername(@RequestBody String username){
 		return userRepository.findUserByUsername(username);
 	}
+	
+	@PostMapping("/api/logout")
+	public void logout (HttpSession session) {
+		session.invalidate();
+	}
+
 }
