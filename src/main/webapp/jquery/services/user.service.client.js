@@ -7,12 +7,10 @@ function UserServiceClient() {
 	this.register = register;
 	this.updateProfile = updateProfile;
 	this.login = login;
-	this.setSessionAttribute = setSessionAttribute;
 	this.url = window.location.origin+'/api/user';
 	this.loginUrl = window.location.origin+'/api/login';
     this.profileUrl = window.location.origin+'/api/profile';
     this.registerUrl = window.location.origin+'/api/register';
-    this.setSessionUrl = window.location.origin+'/api/session/set';
 	var self = this;
 
     //////////// Assignment: User admin functions ////////////
@@ -105,17 +103,6 @@ function UserServiceClient() {
 
 	}
 
-	function setSessionAttribute(username, password){
-    	return fetch(self.setSessionUrl+"/username/"+username)
-			.then(function (usernameResponse) {
-				return fetch(self.setSessionUrl+"/password/"+password)
-					.then(function (passwordResponse) {
-						console.log(usernameResponse+ passwordResponse);
-						return usernameResponse+ passwordResponse;
-            		});
-        	});
-
-	}
 
 
 }
