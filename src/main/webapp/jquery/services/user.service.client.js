@@ -7,10 +7,10 @@ function UserServiceClient() {
 	this.register = register;
 	this.login = login;
 	this.setSessionAttribute = setSessionAttribute;
-	this.url = 'http://localhost:8080/api/user';
-	this.loginUrl = 'http://localhost:8080/api/login';
-    this.registerUrl = 'http://localhost:8080/api/register';
-    this.setSessionUrl = 'http://localhost:8080/api/session/set';
+	this.url = window.location.origin+'/api/user';
+	this.loginUrl = window.location.origin+'/api/login';
+    this.registerUrl = window.location.origin+'/api/register';
+    this.setSessionUrl = window.location.origin+'/api/session/set';
 	var self = this;
 
     //////////// Assignment: User admin functions ////////////
