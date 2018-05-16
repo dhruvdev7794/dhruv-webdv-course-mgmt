@@ -5,6 +5,7 @@
     var tbody;
     var tr_template;
     var userService = new UserServiceClient();
+    var $editBtn;
     function main(){
         // hide the template
         var hidden = $('.wbdv-hidden');
@@ -89,7 +90,7 @@
     }
 
     function editUser(event){
-        var $editBtn = $(event.currentTarget);
+        $editBtn = $(event.currentTarget);
         var userId = $editBtn.parent().parent().parent().attr('id');
         findUserById(userId)
             .then(selectUser);
@@ -115,7 +116,18 @@
         var userId = $editBtn.parent().parent().parent().attr('id');
         findUserById(userId)
             .then(function (response) {
-                console.log(response)
+                var user = {
+                    username : $('#usernameFld').val(),
+                    password : $('#passwordFld').val(),
+                    firstName : $('#firstNameFld').val(),
+                    lastName : $('#lastNameFld').val(),
+                    email : $('#emailFld').val(),
+                    phone : $('#phoneFld').val(),
+                    role : $('#roleFld').val(),
+
+                }
+                userService.updateUser(userId, user)
+                    .then(findAllUsers);
             });
     }
 
