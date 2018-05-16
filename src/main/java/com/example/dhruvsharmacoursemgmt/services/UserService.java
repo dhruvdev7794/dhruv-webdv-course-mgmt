@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +40,9 @@ public class UserService {
 		}
 		return null;
 	}
+	
+
+	
 	@PutMapping("/api/user/{userId}")
 	public User updateUser(@PathVariable("userId") int userId, @RequestBody User newUser) {
 		Optional<User> data = userRepository.findById(userId);
@@ -51,6 +53,8 @@ public class UserService {
 			user.setEmail(newUser.getEmail());
 			user.setPhone(newUser.getPhone());
 			user.setRole(newUser.getRole());
+			user.setUsername(newUser.getUsername());
+			user.setDateOfBirth(newUser.getDateOfBirth());
 			// do it for the rest of the fields
 			userRepository.save(user);
 			return user;
@@ -93,31 +97,5 @@ public class UserService {
 		}
 		return createUser(user);
 	}
-	
-	@GetMapping("/api/session/set/{attr}/{value}")
-	public String setSessionAttribute(
-			@PathVariable("attr") String attr,
-			@PathVariable("value") String value,
-			HttpSession session) {
-		session.setAttribute(attr, value);
-		return attr + " = " + value;
-	}
-	
-	@GetMapping("/api/session/get/{attr}")
-	public String getSessionAttribute(
-			@PathVariable ("attr") String attr,
-			HttpSession session) {
-		return (String) session.getAttribute(attr);
-	}
-
-	@GetMapping("/api/session/invalidate")
-	public String invalidateSession(
-	HttpSession session) {
-		session.invalidate();
-	return "session invalidated";
-	}
-
-
-	
 	
 }
