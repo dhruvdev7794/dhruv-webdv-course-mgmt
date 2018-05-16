@@ -1,13 +1,15 @@
 (function () {
     var $registerBtn;
     var userService = new UserServiceClient();
-    var loginRedirect = '../login/login.template.client.html'
+    var profileRedirect = '../profile/profile.template.client.html';
     $(main);
 
     function main() {
         $('#registerBtn').click(register);
     }
     function register() {
+        var date = new Date($('#dobFld').val());
+        date.setDate(date.getDate()+1);
         if($('#passwordFld').val() == $('#verifyPasswordFld').val()){
             var user = {
                 firstName : $('#firstNameFld').val(),
@@ -16,7 +18,7 @@
                 username : $('#usernameFld').val(),
                 password : $('#passwordFld').val(),
                 phone : $('#phoneFld').val(),
-                dateOfBirth : $('#dobFld').val()
+                dateOfBirth : date
             };
 
             return userService.register(user)
@@ -25,7 +27,8 @@
                         alert("username already exists");
                     }
                     else{
-                        window.location.href=loginRedirect;
+                        console.log(response);
+                        window.location.href=profileRedirect+"?user="+response.id;;
                     }
                 });
         }

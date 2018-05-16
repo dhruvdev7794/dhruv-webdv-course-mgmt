@@ -10,17 +10,10 @@
     var userService = new UserServiceClient();
     var loginPage = '../login/login.template.client.html';
 
-    var $sessionId;
-    if(sessionStorage.username!=undefined && sessionStorage.password!=undefined){
-        userService.login(sessionStorage.username, sessionStorage.password)
-            .then(function (response) {
-                $sessionId = response[0].id;
-                init();
-            })
-    }
-    else{
-        init();
-    }
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get("user");
+    $(init);
 
     function init(){
         $staticUsername = $('#staticUsername');
@@ -30,12 +23,11 @@
         $lastName = $('#lastName');
         $role = $('#role');
         $dob = $('#dob');
-
-        if($sessionId!=undefined){
-            findUserById($sessionId);
-        }
         $('#logoutBtn').click(logout);
         $('#updateBtn').click(updateUser);
+        if(userId!=null){
+            findUserById(userId);
+        }
     }
 
     function findUserById(userId){
@@ -44,39 +36,41 @@
     }
 
     function renderUser(user){
-        $staticUsername.val(user.username);
-        $phone.val(user.phone);
-        $email.val(user.email);
-        $firstName.val(user.firstName);
-        $lastName.val(user.lastName);
-        $role.val(user.role);
-        $dob.val(user.dob);
+        var now = new Date(user.dateOfBirth);
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = now.getFullYear()+"-"+(month)+"-"+(day);
+
+
+        $('#staticUsername').val(user.username);
+        $('#phone').val(user.phone);
+        $('#email').val(user.email);
+        $('#firstName').val(user.firstName);
+        $('#lastName').val(user.lastName);
+        $('#role').val(user.role);
+        $('#dob').val(today);
 
     }
 
-    function updateUser(){
+    function updateUser() {
+        var date = new Date($('#dob').val());
+        date.setDate(date.getDate()+1);
         var user = {
-            firstName : $firstName.val(),
-            username : $staticUsername.val(),
-            lastName : $lastName.val(),
-            role : $role.val(),
-            phone : $phone.val(),
-            email : $email.val(),
-            dob: $dob.val()
+            firstName : $('#firstName').val(),
+            username : $('#staticUsername').val(),
+            lastName : $('#lastName').val(),
+            role : $('#role').val(),
+            phone : $('#phone').val(),
+            email : $('#email').val(),
+            dateOfBirth: date
         };
-
         userService
-            .updateUser($sessionId, user)
-            .then(success);
+            .updateUser(userId, user);
     }
 
-    function success(){
-        console.log('success');
-    }
+
 
     function logout(){
-        sessionStorage.removeItem("username");
-        sessionStorage.removeItem("password");
         window.location.href=loginPage;
     }
 })();
