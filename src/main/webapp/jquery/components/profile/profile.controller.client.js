@@ -70,8 +70,6 @@
             .updateProfile(user);
     }
 
-
-
     function logout(){
         window.location.href=loginPage;
     }
