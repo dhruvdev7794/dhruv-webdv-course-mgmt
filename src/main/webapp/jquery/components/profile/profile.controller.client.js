@@ -13,7 +13,6 @@
 
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get("user");
-    console.log(userId);
     $(init);
 
     function init(){
