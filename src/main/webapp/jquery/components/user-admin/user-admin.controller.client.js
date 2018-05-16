@@ -102,7 +102,6 @@
     }
 
     function selectUser(user){
-        // console.log(user);
         $('#usernameFld').val(user.username);
         $('#passwordFld').val(user.password);
         $('#firstNameFld').val(user.firstName);
@@ -125,7 +124,7 @@
                     phone : $('#phoneFld').val(),
                     role : $('#roleFld').val(),
 
-                }
+                };
                 userService.updateUser(userId, user)
                     .then(findAllUsers);
             });

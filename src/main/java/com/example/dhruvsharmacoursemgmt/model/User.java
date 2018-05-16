@@ -77,7 +77,7 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-//	// Setter and getter for DOB
+	// Setter and getter for DOB
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
