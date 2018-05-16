@@ -83,7 +83,6 @@ function UserServiceClient() {
                 'content-type' : 'application/json'
 			}
 		}).then(function (response) {
-			// console.log(response);
 			if(response.status > 400){
 				return null;
 			}

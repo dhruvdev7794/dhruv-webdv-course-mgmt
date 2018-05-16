@@ -2,7 +2,6 @@ package com.example.dhruvsharmacoursemgmt.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class UserService {
 
 	@PostMapping("/api/login")
 	public Optional<User> login(@RequestBody User user, HttpServletResponse response) {
-		Optional<User> data = userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+		Optional<User> data = findUserByCredentials(user);
 		if(data.isPresent()) {
 			return data;
 		}
@@ -83,9 +82,13 @@ public class UserService {
 		return null;
 	}
 	
+	public Optional<User> findUserByCredentials(@RequestBody User user){
+		return userRepository.findUserByCredentials(user.getUsername(), user.getPassword());
+	}
+	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpServletResponse response){
-		Iterable<User> data = userRepository.findUserByUsername(user.getUsername());
+		Iterable<User> data = findUserByUsername(user.getUsername());
 		for(User newUser : data) {
 			if(newUser!=null) {
 				response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -98,4 +101,7 @@ public class UserService {
 		return createUser(user);
 	}
 	
+	public Iterable<User> findUserByUsername(@RequestBody String username){
+		return userRepository.findUserByUsername(username);
+	}
 }
