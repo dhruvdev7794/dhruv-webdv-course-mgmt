@@ -60,6 +60,27 @@ public class UserService {
 		}
 		return null;
 	}
+	
+	@PutMapping("/api/profile")
+	public User updateProfile(@RequestBody User newUser) {
+		Optional<User> data = userRepository.findById(newUser.getId());
+		if(data.isPresent()) {
+			User user = data.get();
+			user.setFirstName(newUser.getFirstName());
+			user.setLastName(newUser.getLastName());
+			user.setEmail(newUser.getEmail());
+			user.setPhone(newUser.getPhone());
+			user.setRole(newUser.getRole());
+			user.setUsername(newUser.getUsername());
+			user.setDateOfBirth(newUser.getDateOfBirth());
+			// do it for the rest of the fields
+			userRepository.save(user);
+			return user;
+		}
+		return null;
+	}
+	
+	
 	@DeleteMapping("/api/user/{userId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable("userId") int id) {
 		try{

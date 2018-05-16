@@ -13,6 +13,7 @@
 
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get("user");
+    console.log(userId);
     $(init);
 
     function init(){
@@ -24,11 +25,12 @@
         $role = $('#role');
         $dob = $('#dob');
         $('#logoutBtn').click(logout);
-        $('#updateBtn').click(updateUser);
+        $('#updateBtn').click(updateProfile);
         if(userId!=null){
             findUserById(userId);
         }
     }
+
 
     function findUserById(userId){
         userService.findUserById(userId)
@@ -52,10 +54,11 @@
 
     }
 
-    function updateUser() {
+    function updateProfile() {
         var date = new Date($('#dob').val());
         date.setDate(date.getDate()+1);
         var user = {
+            id: userId,
             firstName : $('#firstName').val(),
             username : $('#staticUsername').val(),
             lastName : $('#lastName').val(),
@@ -65,7 +68,7 @@
             dateOfBirth: date
         };
         userService
-            .updateUser(userId, user);
+            .updateProfile(user);
     }
 
 

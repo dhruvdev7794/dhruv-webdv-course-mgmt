@@ -5,10 +5,12 @@ function UserServiceClient() {
 	this.deleteUser = deleteUser;
 	this.updateUser = updateUser;
 	this.register = register;
+	this.updateProfile = updateProfile;
 	this.login = login;
 	this.setSessionAttribute = setSessionAttribute;
 	this.url = window.location.origin+'/api/user';
 	this.loginUrl = window.location.origin+'/api/login';
+    this.profileUrl = window.location.origin+'/api/profile';
     this.registerUrl = window.location.origin+'/api/register';
     this.setSessionUrl = window.location.origin+'/api/session/set';
 	var self = this;
@@ -48,6 +50,18 @@ function UserServiceClient() {
 			}
 		}).then(function (response) {
 			return response.json()
+        });
+	}
+
+	function updateProfile(user){
+        return fetch(self.profileUrl, {
+            method: 'put',
+            body: JSON.stringify(user),
+            headers:{
+                'content-type' : 'application/json'
+            }
+        }).then(function (response) {
+            return response.json()
         });
 	}
 
