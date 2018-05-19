@@ -1,15 +1,20 @@
 package com.example.dhruvsharmacoursemgmt.model;
 
-import java.util.Date;
+import static org.assertj.core.api.Assertions.allOf;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
 public class Course {
-	// Variables
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -18,8 +23,6 @@ public class Course {
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modified;
-	
-	// Setters and Getters
 	public int getId() {
 		return id;
 	}
@@ -44,6 +47,4 @@ public class Course {
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-	
-
 }
