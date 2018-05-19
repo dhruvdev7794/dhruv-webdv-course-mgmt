@@ -21,8 +21,7 @@ import com.example.dhruvsharmacoursemgmt.repositories.UserRepository;
 @RestController
 public class UserService {
 	@Autowired
-	UserRepository userRepository;	
-	
+	UserRepository userRepository;
 	
 	@PostMapping("/api/user")
 	public User createUser(@RequestBody User user) {
