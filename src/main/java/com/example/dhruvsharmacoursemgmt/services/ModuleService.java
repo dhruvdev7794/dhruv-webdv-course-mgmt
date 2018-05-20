@@ -50,7 +50,7 @@ public class ModuleService {
 	}
 
 	
-	@DeleteMapping("/api/course/{courseId}/module/{moduleId}")
+	@DeleteMapping("/api/module/{moduleId}")
 	public void deleteCourse(@PathVariable("moduleId") int moduleId) {
 		moduleRepository.deleteById(moduleId);
 	}
