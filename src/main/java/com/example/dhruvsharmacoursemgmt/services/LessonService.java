@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.dhruvsharmacoursemgmt.model.Course;
 import com.example.dhruvsharmacoursemgmt.model.Lesson;
 import com.example.dhruvsharmacoursemgmt.model.Module;
 import com.example.dhruvsharmacoursemgmt.repositories.LessonRepository;
@@ -50,5 +49,24 @@ public class LessonService {
 		return lessonRepository.save(lesson);
 	}
 	
+	@GetMapping("api/course/{cid}/module/{mid}/lesson")
+	public Iterable<Lesson> findAllLessonssForModule(@PathVariable("moduleId") int moduleId){
+		Optional<Module> data = moduleRepository.findById(moduleId);
+		if(data.isPresent()) {
+			Module module = data.get();
+			return module.getLessons();
+		}
+		return null;
+	}
 	
+	@PutMapping("api/lesson/{id}")
+	public Lesson updateLesson(@PathVariable("lessonId") int lessonId, @RequestBody Lesson newLesson) {
+		Optional<Lesson> data = lessonRepository.findById(lessonId);
+		if(data.isPresent()) {
+			Lesson lesson = data.get();
+			lesson.setTitle(newLesson.getTitle());
+			lessonRepository.save(lesson);
+		}
+		return null;
+	}
 }
