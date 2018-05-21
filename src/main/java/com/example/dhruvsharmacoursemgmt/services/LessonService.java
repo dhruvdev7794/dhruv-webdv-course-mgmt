@@ -44,14 +44,21 @@ public class LessonService {
 		lessonRepository.deleteById(lessonId);
 	}
 	
-	@PostMapping("api/course/{cid}/module/{mid}/lesson")
-	public Lesson createLesson(@RequestBody Lesson lesson) {
-		return lessonRepository.save(lesson);
+	@PostMapping("api/course/{courseId}/module/{moduleId}/lesson")
+	public Lesson createLesson(@PathVariable("moduleId") int moduleId, @RequestBody Lesson lesson) {
+		Optional<Module> data = moduleRepository.findById(moduleId);
+		if(data.isPresent()) {
+			Module module = data.get();
+			lesson.setModule(module);
+			return lessonRepository.save(lesson);
+		}
+		return null;
 	}
 	
-	@GetMapping("api/course/{cid}/module/{mid}/lesson")
-	public Iterable<Lesson> findAllLessonssForModule(@PathVariable("moduleId") int moduleId){
+	@GetMapping("api/course/{courseId}/module/{moduleId}/lesson")
+	public Iterable<Lesson> findAllLessonsForModule(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId){
 		Optional<Module> data = moduleRepository.findById(moduleId);
+		System.out.println("hello");
 		if(data.isPresent()) {
 			Module module = data.get();
 			return module.getLessons();
