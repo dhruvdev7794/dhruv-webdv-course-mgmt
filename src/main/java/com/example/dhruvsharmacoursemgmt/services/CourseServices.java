@@ -1,5 +1,6 @@
 package com.example.dhruvsharmacoursemgmt.services;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,14 @@ public class CourseServices {
 	
 	@PostMapping("/api/course")
 	public Course createCourse(@RequestBody Course course) {
-			return courseRepository.save(course);
+		Date date = new Date();
+		if(course.getCreated() == null) {
+			course.setCreated(date);
+		}
+		if(course.getModified() == null) {
+			course.setModified(date);
+		}
+		return courseRepository.save(course);
 	}
 	
 	@DeleteMapping("/api/course/{courseId}")
