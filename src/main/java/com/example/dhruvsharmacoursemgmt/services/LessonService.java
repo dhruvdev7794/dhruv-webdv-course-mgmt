@@ -2,6 +2,9 @@ package com.example.dhruvsharmacoursemgmt.services;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,13 +59,13 @@ public class LessonService {
 	}
 	
 	@GetMapping("api/course/{courseId}/module/{moduleId}/lesson")
-	public Iterable<Lesson> findAllLessonsForModule(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId){
+	public Iterable<Lesson> findAllLessonsForModule(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId, HttpServletResponse response){
 		Optional<Module> data = moduleRepository.findById(moduleId);
-		System.out.println("hello");
 		if(data.isPresent()) {
 			Module module = data.get();
 			return module.getLessons();
 		}
+		response.setStatus(HttpServletResponse.SC_CONFLICT);
 		return null;
 	}
 	
