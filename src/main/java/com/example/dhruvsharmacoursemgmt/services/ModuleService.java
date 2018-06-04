@@ -70,7 +70,7 @@ public class ModuleService {
 		return null;
 	}
 	
-	@PutMapping("/api/module/{id")
+	@PutMapping("/api/module/{id}")
 	public Module updateModule(@PathVariable("moduleId") int moduleId, @RequestBody Module newModule) {
 		Optional<Module> data = moduleRepository.findById(moduleId);
 		if(data.isPresent()) {
