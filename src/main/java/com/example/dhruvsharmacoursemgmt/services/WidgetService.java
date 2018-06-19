@@ -1,6 +1,8 @@
 package com.example.dhruvsharmacoursemgmt.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dhruvsharmacoursemgmt.model.Lesson;
 import com.example.dhruvsharmacoursemgmt.model.Widget;
+import com.example.dhruvsharmacoursemgmt.repositories.LessonRepository;
 import com.example.dhruvsharmacoursemgmt.repositories.WidgetRepository;
 
 @RestController
@@ -20,10 +24,18 @@ public class WidgetService {
 	@Autowired
 	WidgetRepository widgetRepository;
 	
-	@GetMapping("/api/widget")
-	public Iterable<Widget> findAllWidgets(){
-		System.out.println("hi hi");
-		return widgetRepository.findAll();
+	@Autowired
+	LessonRepository lessonRepository;
+	
+	@GetMapping("/api/lesson/{lessonId}/widget")
+	public Iterable<Widget> findAllWidgets(@PathVariable("lessonId") int lessonId){
+		Optional<Lesson> lesson = lessonRepository.findById(lessonId);
+		if(lesson.isPresent()) {
+			Lesson newLesson = lesson.get();
+			return newLesson.getWidgets();
+		}
+		
+		return null;
 	}
 	
 	@DeleteMapping("/api/widget/{widgetId}")
@@ -31,15 +43,17 @@ public class WidgetService {
 		widgetRepository.deleteById(widgetId);
 	}
 	
-	@PostMapping("api/widget/save")
-	public Widget createWidgets(@RequestBody List<Widget> widgets) {
-		// map with either lesson id or topic id
-		System.out.println("Yo Bitch");
-//		for(Widget widget : widgets) {
-//			System.out.println("HEllo");
-//			System.out.println(widget.getText());
-//			widgetRepository.save(widget);
-//		}
-		return null;
+	@PostMapping("/api/lesson/{lessonId}/widget/save")
+	public void saveAllWidgets(@PathVariable("lessonId") int lessonId, @RequestBody List<Widget> widgets) {
+		Optional<Lesson> lesson = lessonRepository.findById(lessonId);
+		if(lesson.isPresent()) {
+			Lesson newLesson = lesson.get();
+			List<Widget> widgetList = newLesson.getWidgets();
+			widgetRepository.deleteAll(widgetList);
+			for(Widget widget: widgets) {
+				widget.setLesson(newLesson);
+				widgetRepository.save(widget);
+			}
+		}
 	}
 }

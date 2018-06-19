@@ -68,7 +68,7 @@
             phone: phone,
             role: role
         };
-        console.log(user);
+
         userService.createUser(user)
             .then(findAllUsers);
     }

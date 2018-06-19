@@ -16,6 +16,7 @@
     }
 
     function setSession(response){
+        console.log(response);
         if(response!= null && response.username !=null && response.password!=null){
                 window.location.href=profileRedirect+"?user="+response.id;
         }
