@@ -19,7 +19,7 @@ import com.example.dhruvsharmacoursemgmt.repositories.LessonRepository;
 import com.example.dhruvsharmacoursemgmt.repositories.WidgetRepository;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 public class WidgetService {
 	@Autowired
 	WidgetRepository widgetRepository;
