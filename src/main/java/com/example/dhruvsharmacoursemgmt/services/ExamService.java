@@ -34,7 +34,7 @@ public class ExamService {
 		return examRepo.findAll();
 	}
 	
-	@GetMapping("api/lesson/{examId}/exam")
+	@GetMapping("api/lesson/{lessonId}/exam")
 	public Iterable<Exam> findExamForLesson(@PathVariable("lessonId") int lessonId){
 		Optional<Lesson> lesson = lessonRepo.findById(lessonId);
 		if(lesson.isPresent()) {
