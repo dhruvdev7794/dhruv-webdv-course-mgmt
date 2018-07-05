@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dhruvsharmacoursemgmt.model.Assignment;
 import com.example.dhruvsharmacoursemgmt.model.Exam;
 import com.example.dhruvsharmacoursemgmt.model.Lesson;
+import com.example.dhruvsharmacoursemgmt.model.Question;
 import com.example.dhruvsharmacoursemgmt.model.Widget;
 import com.example.dhruvsharmacoursemgmt.repositories.ExamRepository;
 import com.example.dhruvsharmacoursemgmt.repositories.LessonRepository;
@@ -58,6 +61,27 @@ public class ExamService {
 			return exam.get();
 		}
 		response.setStatus(HttpServletResponse.SC_CONFLICT);
+		return null;
+	}
+	
+	@PostMapping("api/lesson/{lessonId}/exam")
+	public Exam createExam(@PathVariable("lessonId") int lessonId, @RequestBody Exam exam) {
+		Optional<Lesson> data = lessonRepo.findById(lessonId);
+		if(data.isPresent()) {
+			Lesson newLesson = data.get();
+			exam.setLesson(newLesson);
+			return examRepo.save(exam);
+		}
+		return null;
+	}
+	
+	@GetMapping("api/exam/{examId}/question")
+	public List<Question> findQuestionsForExam(@PathVariable("examId") int examId){
+		Optional<Exam> exam = examRepo.findById(examId);
+		if(exam.isPresent()) {
+			Exam newExam = exam.get();
+			return newExam.getQuestions();
+		}
 		return null;
 	}
 }
