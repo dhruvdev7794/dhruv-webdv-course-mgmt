@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,12 @@ public class ExamService {
 	public Iterable<Exam> findAllExams(){
 		return examRepo.findAll();
 	}
+	
+	@DeleteMapping("/api/exam/{examId}")
+	public void deleteExam(@PathVariable("examId") int examId) {
+		examRepo.deleteById(examId);
+	}
+
 	
 	@GetMapping("api/lesson/{lessonId}/exam")
 	public Iterable<Exam> findExamForLesson(@PathVariable("lessonId") int lessonId){
