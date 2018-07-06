@@ -52,7 +52,7 @@ public class TrueFalseService {
 	}
 	
 	@GetMapping("api/truefalse/{questionId}")
-	public TrueFalseQuestion findEssayFromQuestionId(@PathVariable("questionId") int questionId, HttpServletResponse response) {
+	public TrueFalseQuestion findTFFromQuestionId(@PathVariable("questionId") int questionId, HttpServletResponse response) {
 		Optional<TrueFalseQuestion> tfObj = tfRepo.findById(questionId);
 		if(tfObj.isPresent()) {
 			return tfObj.get();
