@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +36,7 @@ public class AssignmentService {
 		assgnRepo.deleteById(assignmentId);	
 	}
 	
-	@PutMapping("api/lesson/{lessonId}/assignment")
+	@PostMapping("api/lesson/{lessonId}/assignment")
 	public Assignment createAssignment(@PathVariable("lessonId") int lessonId, @RequestBody Assignment assignment) {
 		Optional<Lesson> data = lessonRepo.findById(lessonId);
 		if(data.isPresent()) {
@@ -46,10 +47,12 @@ public class AssignmentService {
 		return null;
 	}
 	
-	@PutMapping("api/assignment/{assignmentId}")
-	public Assignment updateAssignment(@PathVariable("assignmentId") int assignmentId, @RequestBody Assignment assignment) {
-		Optional<Assignment> data = assgnRepo.findById(assignmentId);
+	@PutMapping("api/lesson/{lessonId}/assignment")
+	public Assignment updateAssignment(@PathVariable("lessonId") int lessonId, @RequestBody Assignment assignment) {
+		Optional<Lesson> data = lessonRepo.findById(lessonId);
 		if(data.isPresent()) {
+			Lesson lesson = data.get();
+			assignment.setLesson(lesson);
 			return assgnRepo.save(assignment);
 		}
 		return null;

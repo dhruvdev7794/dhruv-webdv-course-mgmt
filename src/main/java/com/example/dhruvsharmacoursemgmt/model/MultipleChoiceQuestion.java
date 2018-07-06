@@ -5,17 +5,17 @@ import javax.persistence.Entity;
 @Entity
 public class MultipleChoiceQuestion extends Question {
 	private String options;
-	private int correctOption;
+	private String correctOption;
 	public String getOptions() {
 		return options;
 	}
 	public void setOptions(String options) {
 		this.options = options;
 	}
-	public int getCorrectOption() {
+	public String getCorrectOption() {
 		return correctOption;
 	}
-	public void setCorrectOption(int correctOption) {
+	public void setCorrectOption(String correctOption) {
 		this.correctOption = correctOption;
 	}
 }
